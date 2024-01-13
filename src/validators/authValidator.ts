@@ -15,22 +15,20 @@ export const loginSchema = Joi.object({
 
 export const registerUserValidateInput = (data: any) => {
   const { error, value } = registerSchema.validate(data);
-  if (error) {
-    const errorMessage = error.details
-      .map((detail) => detail.message)
-      .join(", ");
-    return new CustomError(errorMessage, 400);
-  }
-  return value;
+  return genericResponse(error, value);
 };
 
 export const loginUserValidateInput = (data: any) => {
   const { error, value } = loginSchema.validate(data);
+  return genericResponse(error, value);
+};
+
+const genericResponse = (error: {details:any}, value: any) => {
   if (error) {
     const errorMessage = error.details
-      .map((detail) => detail.message)
+      .map((detail: {message: string }) => detail.message)
       .join(", ");
     return new CustomError(errorMessage, 400);
   }
   return value;
-};
+}

@@ -1,5 +1,6 @@
 import express, { Request, Response, NextFunction } from "express";
 import dotenv from "dotenv";
+import cors from "cors";
 import chalk from "chalk";
 import morgan from "morgan";
 import * as Sentry from "@sentry/node";
@@ -30,6 +31,9 @@ const logger = morgan((tokens, req, res) => {
     chalk.gray(`from ${tokens["user-agent"](req, res)}`),
   ].join(" ");
 });
+app.use((req: Request, res: Response, next: NextFunction) => {
+  next();
+}, cors({ maxAge: 84600 }));
 app.use(logger);
 app.use(Sentry.Handlers.requestHandler());
 app.use(express.json());

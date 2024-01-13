@@ -4,7 +4,7 @@ import { Request, Response, NextFunction } from "express";
 import { asyncErrorHandler } from "../middlewares/asyncErrorHandler";
 import { CustomError } from "../exceptions/CustomError";
 import { UserRepository } from "../repositories/userRepository";
-import { ILoginUser, IUser } from "../interfaces/user";
+import { IUser } from "../interfaces/user";
 import { successResponse } from "../responses/successResponse";
 import { JWT_SECRET } from "../configs/env";
 import { sendEmail } from "../utils/emailSender";
@@ -43,6 +43,9 @@ export class AuthController {
         lastName: validationResult.lastName,
         email: validationResult.email,
         password: validationResult.password,
+        role: "GUEST",
+        IsVerified: false,
+        IsAdmin: false,
       } as IUser;
       const foundUser = (await this.userRepository.findUserByEmail(
         newUser.email
@@ -70,6 +73,9 @@ export class AuthController {
         firstName: createdUser.firstName,
         lastName: createdUser.lastName,
         email: createdUser.email,
+        isAdmin: createdUser.isAdmin,
+        IsVerified: createdUser.IsVerified,
+        role: createdUser.role,
         token,
       };
       successResponse(res, userWithToken, 201);
