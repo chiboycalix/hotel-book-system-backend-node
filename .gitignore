@@ -1,0 +1,8 @@
+node_modules
+.env
+build
+coverage
+.nyc_output
+transactions.json
+notes.txt
+post.txt
