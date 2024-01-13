@@ -4,8 +4,8 @@ export interface IUser extends Document {
   email: string;
   password: string;
   role: string;
-  IsVerified: boolean;
-  IsAdmin: boolean;
+  isVerified: boolean;
+  isAdmin: boolean;
   phoneNumber?: string;
 }
 

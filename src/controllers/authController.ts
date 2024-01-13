@@ -43,9 +43,6 @@ export class AuthController {
         lastName: validationResult.lastName,
         email: validationResult.email,
         password: validationResult.password,
-        role: "GUEST",
-        IsVerified: false,
-        IsAdmin: false,
       } as IUser;
       const foundUser = (await this.userRepository.findUserByEmail(
         newUser.email
@@ -56,6 +53,10 @@ export class AuthController {
 
       const hashedPassword = await bcrypt.hash(validationResult.password, 10);
       newUser.password = hashedPassword;
+      newUser.role = "GUEST";
+      newUser.isVerified = true;
+      newUser.isAdmin = false;
+
       const createdUser = (await this.userRepository.createUser(
         newUser
       )) as any;
