@@ -1,0 +1,90 @@
+Database to use --> MongoDB
+Database name --> hotel_booking_system
+Database password --> !Nono@1994!
+Web Framework --> Fiber
+
+Tables
+1. Users
+   --> Admin/Guests/Employees
+   --> Register with Google/Email&Password/Facebook (Guests)
+   --> SignIn with Email&Password (Admin/Employees/Guests)
+   --> SignIn with google/facebook (Guests)
+   --> ForgotPassword/ResetPassword (Employees/Guests)
+   --> Create Employee (Admins)
+   --> Create Guests (Admins/Employees)
+   --> CRUD Employees (Admins/Employees-->Read&Update my own account)
+   --> CRD Guests (Admin/Employee)
+   --> Model (id, email, password, role, firstName, lastName, phoneNumber, dateOfBirth, Location, createdAt, isVerified)
+
+2. Bookings (after a room is booked, it should be added to the bookings table)
+   --> View all bookings (Admins/Employee)
+   --> Delete Bookings (Admin/Employees) --> send array of booking id's for bulk delete
+   --> Update Bookings (Admin/Employees)
+   --> Create Booking (Guests)
+   --> Fields
+      --> ID
+      --> RoomID (populate room using it's ID)
+      --> BookingDate
+      --> GuestID (populate guest using it's ID)
+      --> CheckIn (Date)
+      --> CheckOut (Date)
+
+3. Rooms
+   --> Add new Room (Admin)
+   --> Edit Room Details (Admin)
+   --> View Room/Rooms (Admin/Employees/Guests)
+   --> View Room Details (Admin/Employee/Guests)
+   --> Delete Room/Rooms (Admin) --> send an array of room id's you want to delete for bulk delete to be easier
+   --> Fields for creating a room
+      --> Room photos (3)
+      --> Room Name
+      --> Room Facilities (array of facilities)
+      --> Floor (1st, 2nd, 3rd and so on)
+      --> Block (A, B, C),
+      --> roomStatus (booked, pending, free)
+
+4. Reports (Daily records, date, number of rooms booked on for that date, standard, deluxe, accessible, Total income for that day)
+   --> View All Reports (most recent first) (Admin/Employee)
+   --> Search reports by date range (Admin/Employee)
+
+5. Listings (This is where you book a room)
+   --> Book a room (Admin/Employee/Guest)
+   --> View all Listings (Admin/Employees/Guest)
+   --> View Listings details (Admin/Employees/Guest)
+   --> Edit Listings (Admin/Employee)
+   --> Delete Listings (Admin/Employee) --> no bulk delete here
+   --> Create Listings. (more like getiing info about a particular room in a particular location with the price and adding it to this page)
+
+6. Guests (Users that have booked for a room)
+   --> View All Guests (Admin/Employees)
+   --> View Guest Details (Admin/Employees)
+   --> Edit guest (Guest)
+   --> Delete Guest (Admin/Employee/Guest)
+   --> Create Guest (Admin/Employee/Guest)
+   --> Search for Guests by name and Checkin date (Admin/Employee)
+   --> Ones you book a room, you become a guest and you get added to the guest table
+
+7. Payments
+   --> Pay for rooms using debit card (Employees)
+   --> Pay for rooms using credit card (Employees)
+
+8. Dashboard endpoint
+   --> Get count of all bookings, all checkins, all checkouts, all rooms
+   --> Get count of all available rooms, all sold out rooms, all cancelled rooms
+   --> Get Income stats (For Current day or Today, each day of the week, Each month in a year, Last 5 years)
+   --> Calendar
+
+
+How ForgetPassword works (use Brevo for email sending)
+   --> make an api call with the email of the user that forgot his/her password
+   --> search for the user with that email address
+   --> send a mail to that user with the email address found, email should contain a token which can be used to identify the user
+   --> when the user clicks on a button/link from the mail sent, he should be redirected to the reset password page
+How ResetPassword work
+   --> the reset password page should expect 2 passwords fields(password and confirmPassword) and the user email embedded in a token in the mail(behind the scene)
+   --> after entering a new password, call an endpoint that would hash this password and send an update request to the user record with the new password
+How Password Changed works
+   --> Ones your password is changed, you will recieve an email telling to verify your account after you have changed the password
+   --> Ones you verify your account, you can then proceed to login
+To have
+   --> Remeber to make the links expire afer some time(1 hr maybe)
