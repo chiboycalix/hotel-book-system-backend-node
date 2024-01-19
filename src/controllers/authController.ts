@@ -99,7 +99,7 @@ export class AuthController {
       }
 
       if(!foundUser.isVerified){
-        return next(new CustomError("User not yet verified", 404))
+        return next(new CustomError("User not yet verified", 401))
       }
 
       const isPasswordValid = await bcrypt.compare(

@@ -8,13 +8,28 @@ const baseUrl = "/api/v1";
 describe("Login Function", () => {
   const testEmail = "test@example.com";
   const testPassword = "securePassword123";
+  const notVefifiedEmail = "igwechinonso77@gmail.com";
+  const notVerifiedPassword = "Password123@";
   beforeEach(async () => {
     const hashedPassword = await bcrypt.hash(testPassword, 10);
+    const notVerifiedHashedPassword = await bcrypt.hash(
+      notVerifiedPassword,
+      10
+    );
     await User.create({
       firstName: "John",
       lastName: "Doe",
       password: hashedPassword,
       email: testEmail,
+      isVerified: true,
+    });
+
+    await User.create({
+      firstName: "John",
+      lastName: "Doe",
+      password: notVerifiedHashedPassword,
+      email: notVefifiedEmail,
+      isVerified: false,
     });
   });
 
@@ -44,6 +59,14 @@ describe("Login Function", () => {
       .send({ email: testEmail, password: "wrong password" });
     expect(response.statusCode).toBe(401);
     expect(response.body.message).toBe("Invalid credentials");
+  });
+
+  it("should return 401 if user is not verified", async () => {
+    const response = await request(app)
+      .post(`${baseUrl}/auth/login`)
+      .send({ email: notVefifiedEmail, password: notVerifiedPassword });
+    expect(response.statusCode).toBe(401);
+    expect(response.body.message).toBe("User not yet verified");
   });
 
   it("should login user successfuly", async () => {
