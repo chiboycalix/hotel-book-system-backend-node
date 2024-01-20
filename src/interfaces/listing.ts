@@ -6,4 +6,5 @@ export interface IListing extends Document {
   roomImage: string;
   roomBedType: string;
   roomLocation: string;
+  createdBy:string;
 }

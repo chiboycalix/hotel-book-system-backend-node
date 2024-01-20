@@ -26,7 +26,8 @@ export class ListingController {
         roomImage: validationResult.roomImage,
         roomLocation: validationResult.roomLocation,
         roomBedType: validationResult.roomBedType,
-      } as IListing;
+        createdBy: validationResult.createdBy,
+      } as any;
       const createdListing = (await this.listingRepository.createListing(
         newListing
       )) as any;

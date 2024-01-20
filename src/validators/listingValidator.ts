@@ -7,6 +7,7 @@ export const createListingSchema = Joi.object({
   roomImage: Joi.string().required(),
   roomLocation: Joi.string().required(),
   roomBedType: Joi.string().min(2).required(),
+  createdBy: Joi.string().email().required(),
 });
 
 export const createListingValidateInput = (data: any) => {

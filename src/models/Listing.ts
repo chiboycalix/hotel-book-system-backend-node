@@ -11,6 +11,7 @@ const listingSchema = new Schema(
     roomImage: { type: String, required: true },
     roomBedType: { type: String, required: true },
     roomLocation: { type: String, required: true },
+    createdBy: { type: String, ref: "User" },
   },
 
   { timestamps: true }
