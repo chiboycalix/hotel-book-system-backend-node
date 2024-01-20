@@ -1,9 +1,9 @@
 import { Request, Response, NextFunction } from "express";
-import { IListing } from "interfaces/listing";
-import { asyncErrorHandler } from "middlewares/asyncErrorHandler";
-import { ListingRepository } from "repositories/listingRepository";
-import { successResponse } from "responses/successResponse";
-import { createListingValidateInput } from "validators/listingValidator";
+import { IListing } from "../interfaces/listing";
+import { asyncErrorHandler } from "../middlewares/asyncErrorHandler";
+import { ListingRepository } from "../repositories/listingRepository";
+import { successResponse } from "../responses/successResponse";
+import { createListingValidateInput } from "../validators/listingValidator";
 
 export class ListingController {
   private listingRepository: ListingRepository;

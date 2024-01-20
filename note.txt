@@ -6,17 +6,25 @@ Web Framework --> Fiber
 Tables
 1. Users
    --> Admin/Guests/Employees
-   --> Register with Google/Email&Password/Facebook (Guests)
+   --> Register with Google/Email&Password/Facebook (Guests) --> on hold
+   --> SignIn with google/facebook (Guests) --> on hold
    --> SignIn with Email&Password (Admin/Employees/Guests)
-   --> SignIn with google/facebook (Guests)
-   --> ForgotPassword/ResetPassword (Employees/Guests)
-   --> Create Employee (Admins)
-   --> Create Guests (Admins/Employees)
-   --> CRUD Employees (Admins/Employees-->Read&Update my own account)
-   --> CRD Guests (Admin/Employee)
+   --> Only Employees and Guests should be able to use the ForgotPassword/ResetPassword features (Employees/Guests)
+   --> Admins should be able to create Employee (Admins)
+   --> Admin and Employee should be able to create Guests (Admins/Employees)
+   --> Admin should be able to perform CRUD operations on Employees (Employees)
    --> Model (id, email, password, role, firstName, lastName, phoneNumber, dateOfBirth, Location, createdAt, isVerified)
 
-2. Bookings (after a room is booked, it should be added to the bookings table)
+2. Listings (This is where you book a room)
+   --> Guests should be able to Book a room
+   --> Guests should be able to View all Listings
+   --> Guests should be able to View Listings details
+   --> Guests should be able to Edit Listings
+   --> Delete Listings (Admin/Employee) --> no bulk delete here
+   --> Create Listings. (more like getiing info about a particular room in a particular location with the price and adding it to this page)
+
+
+3. Bookings (after a room is booked, it should be added to the bookings table)
    --> View all bookings (Admins/Employee)
    --> Delete Bookings (Admin/Employees) --> send array of booking id's for bulk delete
    --> Update Bookings (Admin/Employees)
@@ -29,7 +37,7 @@ Tables
       --> CheckIn (Date)
       --> CheckOut (Date)
 
-3. Rooms
+4. Rooms
    --> Add new Room (Admin)
    --> Edit Room Details (Admin)
    --> View Room/Rooms (Admin/Employees/Guests)
@@ -43,17 +51,9 @@ Tables
       --> Block (A, B, C),
       --> roomStatus (booked, pending, free)
 
-4. Reports (Daily records, date, number of rooms booked on for that date, standard, deluxe, accessible, Total income for that day)
+5. Reports (Daily records, date, number of rooms booked on for that date, standard, deluxe, accessible, Total income for that day)
    --> View All Reports (most recent first) (Admin/Employee)
    --> Search reports by date range (Admin/Employee)
-
-5. Listings (This is where you book a room)
-   --> Book a room (Admin/Employee/Guest)
-   --> View all Listings (Admin/Employees/Guest)
-   --> View Listings details (Admin/Employees/Guest)
-   --> Edit Listings (Admin/Employee)
-   --> Delete Listings (Admin/Employee) --> no bulk delete here
-   --> Create Listings. (more like getiing info about a particular room in a particular location with the price and adding it to this page)
 
 6. Guests (Users that have booked for a room)
    --> View All Guests (Admin/Employees)

@@ -1,11 +1,11 @@
 import Joi from "joi";
-import { CustomError } from "exceptions/CustomError";
+import { CustomError } from "../exceptions/CustomError";
 
 export const createListingSchema = Joi.object({
   roomName: Joi.string().required(),
   roomPrice: Joi.number().required(),
   roomImage: Joi.string().required(),
-  roomLocation: Joi.string().email().required(),
+  roomLocation: Joi.string().required(),
   roomBedType: Joi.string().min(2).required(),
 });
 
