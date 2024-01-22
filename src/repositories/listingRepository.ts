@@ -9,4 +9,7 @@ export class ListingRepository {
   async createListing(listing: IListing): Promise<IListing> {
     return this.listingModel.create(listing);
   }
+  async getAllListings(): Promise<IListing[]> {
+    return this.listingModel.find();
+  }
 }

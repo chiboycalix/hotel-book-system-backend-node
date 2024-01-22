@@ -16,3 +16,9 @@ ListingRouter.post(
   upload.single('roomImage'),
   listingController.createListing.bind(listingController)
 );
+
+ListingRouter.get(
+  "/all",
+  isAuthorized,
+  listingController.getAllListings.bind(listingController)
+);

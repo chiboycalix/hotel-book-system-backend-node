@@ -40,4 +40,11 @@ export class ListingController {
       successResponse(res, createdListing, 201);
     }
   );
+
+  getAllListings = asyncErrorHandler(
+    async (req: Request, res: Response, next: NextFunction) => {
+      const listings = (await this.listingRepository.getAllListings()) as any;
+      successResponse(res, listings, 200);
+    }
+  );
 }
