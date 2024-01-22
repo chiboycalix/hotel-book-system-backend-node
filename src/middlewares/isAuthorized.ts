@@ -3,7 +3,7 @@ import { CustomError } from "../exceptions/CustomError";
 import { NextFunction,Request,Response } from "express";
 import { JwtPayload } from "jsonwebtoken";
 
-export const isAuthorized = (req: Request, res: Response, next: NextFunction) => {
+export const isAuthorized = (req: Request | any, res: Response, next: NextFunction) => {
   const authorizationHeader = req.headers["authorization"] as string;
   if (!authorizationHeader) {
     return next(new CustomError("Unauthorized access", 401))
@@ -21,6 +21,6 @@ export const isAuthorized = (req: Request, res: Response, next: NextFunction) =>
   if (tokenExpiration && tokenExpiration < dateNow.getTime()/1000) {
     return next(new CustomError("Token expired", 401))
   }
-  req.body.createdBy = decodedToken.email;
+  req.user = decodedToken.email;
   return next();
 }

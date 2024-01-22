@@ -1,9 +1,10 @@
 import { Request, Response, NextFunction } from "express";
-import { IListing } from "../interfaces/listing";
 import { asyncErrorHandler } from "../middlewares/asyncErrorHandler";
 import { ListingRepository } from "../repositories/listingRepository";
 import { successResponse } from "../responses/successResponse";
 import { createListingValidateInput } from "../validators/listingValidator";
+import { CustomError } from "../exceptions/CustomError";
+import { uploadFile } from "../utils/fileUpload";
 
 export class ListingController {
   private listingRepository: ListingRepository;
@@ -12,21 +13,26 @@ export class ListingController {
   }
 
   createListing = asyncErrorHandler(
-    async (req: Request, res: Response, next: NextFunction) => {
+    async (req: Request | any, res: Response, next: NextFunction) => {
+      if (!req.file) {
+        return next(new CustomError("Please upload an image", 400));
+      }
       const validationResult = (await createListingValidateInput(
         req.body
       )) as any;
+
       if (validationResult?.status === "fail") {
         return next(validationResult);
       }
+      const uploadedImageUrl = uploadFile(req);
 
       const newListing = {
         roomName: validationResult.roomName,
         roomPrice: validationResult.roomPrice,
-        roomImage: validationResult.roomImage,
         roomLocation: validationResult.roomLocation,
         roomBedType: validationResult.roomBedType,
-        createdBy: validationResult.createdBy,
+        roomImage: uploadedImageUrl,
+        createdBy: req.user,
       } as any;
       const createdListing = (await this.listingRepository.createListing(
         newListing

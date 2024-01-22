@@ -4,10 +4,8 @@ import { CustomError } from "../exceptions/CustomError";
 export const createListingSchema = Joi.object({
   roomName: Joi.string().required(),
   roomPrice: Joi.number().required(),
-  roomImage: Joi.string().required(),
   roomLocation: Joi.string().required(),
   roomBedType: Joi.string().min(2).required(),
-  createdBy: Joi.string().email().required(),
 });
 
 export const createListingValidateInput = (data: any) => {
