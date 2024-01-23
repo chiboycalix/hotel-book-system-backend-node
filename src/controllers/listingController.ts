@@ -24,8 +24,7 @@ export class ListingController {
       if (validationResult?.status === "fail") {
         return next(validationResult);
       }
-      const uploadedImageUrl = uploadFile(req);
-
+      const uploadedImageUrl = await uploadFile(req);
       const newListing = {
         roomName: validationResult.roomName,
         roomPrice: validationResult.roomPrice,
