@@ -79,6 +79,7 @@ describe("Create Listing Function", () => {
       .field("roomBedType", "Single")
       .attach("roomImage", "src/tests/listing/testImage.png")
       .set("Authorization", `Bearer ${token}`);
+      console.log(response.body, 'responseresponse')
     expect(response.statusCode).toBe(201);
     expect(response.body.success).toBe(true);
     expect(response.body.data.createdBy).toBe("test@example.com");

@@ -17,9 +17,7 @@ export class ListingController {
       if (!req.file) {
         return next(new CustomError("Please upload an image", 400));
       }
-      const validationResult = (await createListingValidateInput(
-        req.body
-      )) as any;
+      const validationResult = (await createListingValidateInput(req.body));
 
       if (validationResult?.status === "fail") {
         return next(validationResult);
@@ -32,10 +30,10 @@ export class ListingController {
         roomBedType: validationResult.roomBedType,
         roomImage: uploadedImageUrl,
         createdBy: req.user,
-      } as any;
+      } as any
       const createdListing = (await this.listingRepository.createListing(
         newListing
-      )) as any;
+      ));
       successResponse(res, createdListing, 201);
     }
   );
