@@ -44,4 +44,17 @@ export class ListingController {
       successResponse(res, listings, 200);
     }
   );
+
+  deleteListingById = asyncErrorHandler(
+    async (req: Request, res: Response, next: NextFunction) => {
+      const deletedListing = (await this.listingRepository.deleteListingById(
+        req.params.id
+      )) as any;
+
+      if (!deletedListing) {
+        return next(new CustomError("Listing not found", 404));
+      }
+      successResponse(res, deletedListing, 200);
+    }
+  );
 }

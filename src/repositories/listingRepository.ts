@@ -12,4 +12,7 @@ export class ListingRepository {
   async getAllListings(): Promise<IListing[]> {
     return this.listingModel.find();
   }
+  async deleteListingById(id: string): Promise<IListing> {
+    return this.listingModel.findByIdAndDelete(id);
+  }
 }

@@ -11,14 +11,20 @@ const listingRepository = new ListingRepository({ listingModel: Listing });
 const listingController = new ListingController({ listingRepository });
 
 ListingRouter.post(
-  "/create",
+  "/",
   isAuthorized,
   upload.single('roomImage'),
   listingController.createListing.bind(listingController)
 );
 
 ListingRouter.get(
-  "/all",
+  "/",
   isAuthorized,
   listingController.getAllListings.bind(listingController)
+);
+
+ListingRouter.delete(
+  "/:id",
+  isAuthorized,
+  listingController.deleteListingById.bind(listingController)
 );
